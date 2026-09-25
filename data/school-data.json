@@ -1,0 +1,360 @@
+{
+  "general": {
+    "name": "AL-NIIMA ACADEMY",
+    "motto": "Standard Education & Morals for World-Class Leadership",
+    "location": "Dutse, Jigawa State, Nigeria",
+    "address": "Behind Godiya Miyetti Housing Estate, Jigawar Tsada, Dutse, Jigawa State",
+    "phoneNumbers": [
+      "08038382557",
+      "08021358445"
+    ],
+    "email": "info@alniimaacademy.com.ng",
+    "documentEmail": "",
+    "website": "www.alniimaacademy.com.ng",
+    "workingHours": "",
+    "adminPasswordHash": "ADMIN-2026"
+  },
+  "hero": {
+    "title": "AL-NIIMA ACADEMY",
+    "subtitle": "Standard Education & Morals for World-Class Leadership",
+    "welcomeMessage": "Welcome to Al-Niima Academy, Dutse. We are dedicated to providing standard, qualitative education with sound moral foundation from Early Years to Secondary and A'level studies, supported by dedicated separate boarding facilities for male and female students.",
+    "badgeText": "Dutse, Jigawa State • Day & Boarding School",
+    "heroImageUrl": ""
+  },
+  "missionVision": {
+    "mission": "We are firm in our commitment to provide a standard and qualitative education to your child.",
+    "vision": "To develop in children, the ability to integrate in a larger society and meet the challenges of a worldwide educational system."
+  },
+  "ethosAndValues": [
+    {
+      "title": "Learning",
+      "description": "Inspiring a lifelong commitment to academic inquiry, critical thinking, and intellectual excellence."
+    },
+    {
+      "title": "Good Character",
+      "description": "Cultivating honesty, uprightness, humility, and moral integrity in every student."
+    },
+    {
+      "title": "Respect",
+      "description": "Fostering mutual honor and consideration for teachers, peers, parents, and community members."
+    },
+    {
+      "title": "Responsibility",
+      "description": "Instilling accountability for one's actions, studies, and contributions to society."
+    },
+    {
+      "title": "Safety",
+      "description": "Maintaining a secure, supportive, and disciplined environment where every child thrives."
+    },
+    {
+      "title": "Fairness",
+      "description": "Upholding justice, impartiality, and equality in all school interactions and disciplines."
+    },
+    {
+      "title": "Understanding",
+      "description": "Nurturing empathy, patience, open-mindedness, and harmonious coexistence."
+    },
+    {
+      "title": "Modesty",
+      "description": "Encouraging decent conduct, humility in speech, and dignified presentation."
+    },
+    {
+      "title": "Sound Morals",
+      "description": "Rooting each learner in steadfast religious and moral values that guide lifelong decisions."
+    },
+    {
+      "title": "Personal Development",
+      "description": "Guiding self-discipline, emotional maturity, leadership, and independence."
+    },
+    {
+      "title": "Academic Development",
+      "description": "Pursuing exceptional standards across all core subjects and modern curricula."
+    },
+    {
+      "title": "Teamwork",
+      "description": "Building the capacity to collaborate, listen, and achieve shared goals together."
+    },
+    {
+      "title": "Sportsmanship",
+      "description": "Promoting physical wellness, healthy competition, gracious victory, and resilience."
+    }
+  ],
+  "announcement": {
+    "enabled": true,
+    "text": "Admissions are currently in progress for the new academic session. Prospective parents are invited to contact the school or apply online.",
+    "date": "September 2026",
+    "actionUrl": "/admissions"
+  },
+  "sections": [
+    {
+      "id": "creche",
+      "category": "Early Years",
+      "title": "Crèche",
+      "ageRange": "3 Months – 1.5 Years",
+      "description": "A loving, hygienic, and secure environment where infants receive attentive physical and emotional care while beginning sensory discovery."
+    },
+    {
+      "id": "kindergarten",
+      "category": "Early Years",
+      "title": "Kindergarten",
+      "ageRange": "1.5 – 3 Years",
+      "description": "Early social interactions, interactive play, motor skill development, and gentle introduction to language and numbers."
+    },
+    {
+      "id": "nursery",
+      "category": "Early Years",
+      "title": "Nursery",
+      "ageRange": "3 – 5 Years",
+      "description": "Structured foundational literacy, phonics, numeracy, writing readiness, and moral orientation in bright, child-centered classes."
+    },
+    {
+      "id": "primary",
+      "category": "Primary School",
+      "title": "Primary School",
+      "ageRange": "Primary 1 – Primary 6",
+      "description": "Solid educational and character building, cultivating independent reading, mathematical reasoning, scientific enquiry, and civic consciousness."
+    },
+    {
+      "id": "jss",
+      "category": "Secondary School",
+      "title": "Junior Secondary School (JSS)",
+      "ageRange": "JSS 1 – JSS 3",
+      "description": "Comprehensive basic secondary schooling covering general academics, prevocational studies, digital technology, and preparation for BECE/NECO examinations."
+    },
+    {
+      "id": "sss",
+      "category": "Secondary School",
+      "title": "Senior Secondary School (SSS)",
+      "ageRange": "SSS 1 – SSS 3",
+      "description": "Specialized academic pathways in Sciences, Commercial Studies, and Humanities, preparing students thoroughly for WAEC, NECO, and UTME examinations."
+    },
+    {
+      "id": "alevel",
+      "category": "Advanced Studies",
+      "title": "A’level Programme",
+      "ageRange": "Post-Secondary",
+      "description": "Intensive pre-university advanced curriculum tailored for motivated candidates seeking direct entry admission into universities."
+    },
+    {
+      "id": "boarding",
+      "category": "Boarding",
+      "title": "Boarding School",
+      "ageRange": "Secondary & A'level Students",
+      "description": "Separate and secure boarding hostels for male and female students with clean water, 24/7 security, and wholesome meals."
+    }
+  ],
+  "academics": {
+    "jssSubjects": [
+      {
+        "name": "English Language",
+        "description": "Grammar, oral expression, reading comprehension, and continuous writing skills."
+      },
+      {
+        "name": "Mathematics",
+        "description": "Number theory, algebra, geometry, statistics, and everyday mathematical problem solving."
+      },
+      {
+        "name": "Prevocational Studies",
+        "description": "Foundational technical, agricultural, and practical life skills."
+      },
+      {
+        "name": "Intermediate Science",
+        "description": "Integrated scientific inquiry, biological principles, chemistry basics, and physics concepts."
+      },
+      {
+        "name": "Business Studies",
+        "description": "Office practice, basic accounting, commerce, and introductory entrepreneurship."
+      },
+      {
+        "name": "Arabic / French",
+        "description": "Foreign language acquisition, grammar, vocabulary, and cross-cultural communication."
+      },
+      {
+        "name": "Hausa",
+        "description": "Indigenous language comprehension, literature, cultural heritage, and orthography."
+      },
+      {
+        "name": "IRK / CRK",
+        "description": "Islamic Religious Knowledge and Christian Religious Knowledge fostering strong moral discipline."
+      },
+      {
+        "name": "Cultural and Creative Art",
+        "description": "Fine arts, visual crafts, Nigerian cultural traditions, and design fundamentals."
+      },
+      {
+        "name": "Social and Citizenship Studies",
+        "description": "Civic duties, national values, social justice, government structures, and community responsibility."
+      },
+      {
+        "name": "Digital Technology",
+        "description": "Computer literacy, coding basics, digital safety, and modern information tools."
+      }
+    ],
+    "sssInformation": "The Senior Secondary School curriculum builds upon the JSS foundation, offering structured pathways in Sciences, Humanities/Arts, and Commercial studies under experienced subject teachers.",
+    "aLevelInformation": "The A’level Programme provides focused academic preparation in key subjects, bridging secondary school and university education through rigorous analytical training."
+  },
+  "clubs": [
+    {
+      "name": "Arts & Drama",
+      "category": "Creative & Cultural",
+      "description": "Stage performance, public expression, and creative storytelling."
+    },
+    {
+      "name": "Literary & Debate",
+      "category": "Academic",
+      "description": "Formal debate, essay writing, public speaking, and argumentation."
+    },
+    {
+      "name": "Mathematics & Science",
+      "category": "Academic",
+      "description": "Problem-solving, Olympiad preparation, and scientific experimentation."
+    },
+    {
+      "name": "Business Club",
+      "category": "Vocational",
+      "description": "Young enterprise, saving culture, and financial literacy."
+    },
+    {
+      "name": "JET (Junior Engineers & Technicians)",
+      "category": "STEM",
+      "description": "Engineering models, technological discovery, and scientific projects."
+    },
+    {
+      "name": "Home-makers / Home Making",
+      "category": "Life Skills",
+      "description": "Culinary techniques, home economics, hospitality, and craft."
+    },
+    {
+      "name": "Anti-corruption Club",
+      "category": "Civic & Moral",
+      "description": "Promoting transparency, integrity, and ethical conduct."
+    },
+    {
+      "name": "Drug-free Club",
+      "category": "Health & Welfare",
+      "description": "Substance abuse awareness, healthy living, and peer mentoring."
+    },
+    {
+      "name": "Young Farmer's Club",
+      "category": "Agricultural",
+      "description": "Practical farming, crop cultivation, and agricultural science."
+    },
+    {
+      "name": "Taekwondo",
+      "category": "Sports & Discipline",
+      "description": "Martial arts discipline, physical fitness, and self-defense."
+    },
+    {
+      "name": "Chess Club",
+      "category": "Strategy & Mind",
+      "description": "Tactical thinking, patience, and strategic board game mastery."
+    },
+    {
+      "name": "Science Club",
+      "category": "STEM",
+      "description": "Hands-on laboratory investigations and natural science projects."
+    },
+    {
+      "name": "ICT & Technology Club",
+      "category": "STEM",
+      "description": "Computer applications, digital creativity, and tech literacy."
+    },
+    {
+      "name": "Survival & Safety Club",
+      "category": "Life Skills",
+      "description": "First aid training, emergency preparedness, and safety consciousness."
+    }
+  ],
+  "boarding": {
+    "title": "Boarding at Al-Niima Academy",
+    "description": "Al-Niima Academy provides a safe, disciplined, and comfortable home away from home for students, fostering brotherhood, sisterhood, self-reliance, and academic focus.",
+    "maleFemaleSeparate": true,
+    "features": [
+      {
+        "title": "Separate Hostels",
+        "detail": "Strictly segregated hostels for male and female students with dedicated supervision."
+      },
+      {
+        "title": "Constant Water Supply",
+        "detail": "Hygienic, running water supply available throughout the boarding premises."
+      },
+      {
+        "title": "24/7 Security",
+        "detail": "Trained security personnel ensuring round-the-clock safety and restricted hostel entry."
+      },
+      {
+        "title": "Professional Catering",
+        "detail": "Wholesome, balanced, and hygienic meals prepared daily by school caterers."
+      },
+      {
+        "title": "Supervised Prep",
+        "detail": "Structured evening and morning study sessions under teacher guidance."
+      },
+      {
+        "title": "Student Welfare",
+        "detail": "Caring house parents and matrons looking after students' daily wellbeing."
+      }
+    ]
+  },
+  "facilities": [
+    {
+      "name": "Playing ground",
+      "category": "Sports & Recreation",
+      "description": "Spacious open sports field for football, athletics, and physical education."
+    },
+    {
+      "name": "Library",
+      "category": "Academic Learning",
+      "description": "Quiet study space stocked with curriculum textbooks, reference literature, and reading materials.",
+      "imageUrl": ""
+    },
+    {
+      "name": "ICT learning zone",
+      "category": "Technology",
+      "description": "Equipped computer facility for digital technology classes and computing skills."
+    },
+    {
+      "name": "Science laboratories",
+      "category": "Science & Practical",
+      "description": "Specialized physics, chemistry, and biology laboratories for hands-on scientific experiments."
+    }
+  ],
+  "admissions": {
+    "requirements": [
+      "Candidate must have completed primary school for secondary admission.",
+      "Candidate must pass the entrance examination conducted by the school.",
+      "Candidate must complete and submit the acceptance form within the stated period.",
+      "School fees must be paid before resumption.",
+      "Students must agree to follow all school rules and regulations.",
+      "JSS1 candidates must meet the stated age requirement."
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Application Form",
+        "desc": "Obtain and submit the application form either online through this portal or in person at the school main office."
+      },
+      {
+        "step": 2,
+        "title": "Entrance Examination",
+        "desc": "The candidate sits for the scheduled entrance assessment testing core subjects (English, Mathematics, and General Knowledge)."
+      },
+      {
+        "step": 3,
+        "title": "Admission Offer",
+        "desc": "Successful candidates receive an official offer of admission along with the acceptance document."
+      },
+      {
+        "step": 4,
+        "title": "Acceptance & Fee Payment",
+        "desc": "Submit the completed acceptance form and pay the prescribed school fees before resumption."
+      },
+      {
+        "step": 5,
+        "title": "Resumption & Orientation",
+        "desc": "Student reports to school for boarding check-in or day resumption and academic orientation."
+      }
+    ],
+    "notes": "For all admissions inquiries, parents can reach the school office directly on 08038382557 or 08021358445."
+  }
+}
