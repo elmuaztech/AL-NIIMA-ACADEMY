@@ -36,6 +36,7 @@ const GALLERY_PATH = path.resolve(DATA_DIR, 'gallery.json');
 const VIDEOS_PATH = path.resolve(DATA_DIR, 'videos.json');
 const APPLICATIONS_PATH = path.resolve(DATA_DIR, 'applications.json');
 const MESSAGES_PATH = path.resolve(DATA_DIR, 'messages.json');
+const SESSIONS_PATH = path.resolve(DATA_DIR, 'sessions.json');
 
 // Helper to safely read JSON
 function readJsonFile<T>(filePath: string, fallback: T): T {
@@ -71,8 +72,36 @@ app.use(express.static(PUBLIC_DIR));
 app.use('/assets', express.static(path.resolve(PUBLIC_DIR, 'assets')));
 app.use('/uploads', express.static(UPLOADS_DIR));
 
-// Simple in-memory session tokens
-const validTokens = new Set<string>();
+// Prevent caching on dynamic API routes so updates are immediately reflected
+app.use('/api', (_req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
+// Persistent session tokens stored in sessions.json so server restarts don't invalidate admin login
+function getValidTokens(): Set<string> {
+  const list = readJsonFile<string[]>(SESSIONS_PATH, []);
+  return new Set(list);
+}
+
+function addSessionToken(token: string) {
+  const tokens = getValidTokens();
+  tokens.add(token);
+  writeJsonFile(SESSIONS_PATH, Array.from(tokens));
+}
+
+function removeSessionToken(token: string) {
+  const tokens = getValidTokens();
+  tokens.delete(token);
+  writeJsonFile(SESSIONS_PATH, Array.from(tokens));
+}
+
+function isSessionValid(token: string): boolean {
+  if (!token) return false;
+  return getValidTokens().has(token);
+}
 
 // Multer storage for gallery images
 const galleryStorage = multer.diskStorage({
@@ -230,7 +259,7 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
     return;
   }
   const token = authHeader.split(' ')[1];
-  if (!validTokens.has(token)) {
+  if (!isSessionValid(token)) {
     res.status(401).json({ error: 'Unauthorized: Session expired or invalid' });
     return;
   }
@@ -252,7 +281,7 @@ app.post('/api/auth/login', (req: Request, res: Response) => {
 
   if (password === storedPassword) {
     const token = `token_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
-    validTokens.add(token);
+    addSessionToken(token);
     res.json({ success: true, token, message: 'Authenticated successfully' });
   } else {
     res.status(401).json({ error: 'Incorrect administrator password' });
@@ -264,7 +293,7 @@ app.get('/api/auth/verify', (req: Request, res: Response) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
-    if (validTokens.has(token)) {
+    if (isSessionValid(token)) {
       res.json({ valid: true });
       return;
     }
@@ -277,7 +306,7 @@ app.post('/api/auth/logout', (req: Request, res: Response) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
-    validTokens.delete(token);
+    removeSessionToken(token);
   }
   res.json({ success: true });
 });
@@ -411,7 +440,7 @@ app.delete('/api/facilities/:index', requireAuth, (req: Request, res: Response) 
 app.get('/api/gallery', (req: Request, res: Response) => {
   const allItems = readJsonFile<any[]>(GALLERY_PATH, []);
   const authHeader = req.headers.authorization;
-  const isAdmin = authHeader && validTokens.has(authHeader.replace('Bearer ', ''));
+  const isAdmin = authHeader && isSessionValid(authHeader.replace('Bearer ', ''));
 
   if (isAdmin) {
     res.json(allItems);
@@ -494,7 +523,7 @@ app.delete('/api/gallery/:id', requireAuth, (req: Request, res: Response) => {
 app.get('/api/videos', (req: Request, res: Response) => {
   const allVideos = readJsonFile<any[]>(VIDEOS_PATH, []);
   const authHeader = req.headers.authorization;
-  const isAdmin = authHeader && validTokens.has(authHeader.replace('Bearer ', ''));
+  const isAdmin = authHeader && isSessionValid(authHeader.replace('Bearer ', ''));
 
   if (isAdmin) {
     res.json(allVideos);

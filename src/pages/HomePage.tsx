@@ -113,27 +113,29 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* ============================================================== */}
       <section
         id="home"
-        className="relative scroll-mt-20 overflow-hidden bg-[#093c20] text-white pt-3 pb-6 sm:pt-5 sm:pb-8 md:pt-6 md:pb-10 border-b-4 border-yellow-400"
+        className="relative scroll-mt-20 overflow-hidden bg-[#093c20] text-white min-h-[65vh] sm:min-h-[72vh] md:min-h-[78vh] flex items-center justify-center pt-10 pb-14 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24 border-b-4 border-yellow-400"
       >
-        {/* Real School Campus Background Image */}
+        {/* Real School Campus Background Image - Softened clarity & gentle blend */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-100 transition-all duration-700 opacity-90 filter brightness-[0.98] contrast-[1.02] saturate-[1.06]"
           style={{
-            backgroundImage: `url('/assets/images/hero-bg.jpg')`,
+            backgroundImage: `url('${hero?.heroImageUrl || '/assets/images/hero-bg.jpg'}')`,
           }}
         />
-        {/* Rich Green Gradient Overlay for Maximum Readability and Professional School Branding */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#051f10]/88 via-[#093c20]/82 to-[#051f10]/92" />
+        {/* Softened Scrim Overlay: Nicely blends background image while providing superb text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-[#093c20]/52 to-[#051f10]/78 backdrop-brightness-[0.94]" />
+        {/* Gentle radial vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(5,31,16,0.62)_100%)] pointer-events-none" />
 
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-2.5 sm:space-y-3.5 md:space-y-4 animate-fade-in">
+        <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-3.5 sm:space-y-4.5 md:space-y-5 animate-fade-in">
           {/* Official School Logo at top of WELCOME TO with prominent larger size and clean distinct spacing */}
-          <div className="flex justify-center mb-3 sm:mb-4 md:mb-4.5 animate-fade-in-down">
+          <div className="flex justify-center mb-3 sm:mb-4.5 md:mb-5 animate-fade-in-down">
             <div
               className="relative group cursor-pointer"
               onClick={() => onNavigate('about')}
               title="Al-Niima Academy Official Emblem"
             >
-              <div className="absolute -inset-2 bg-yellow-400/40 rounded-full blur-sm group-hover:bg-yellow-400/70 transition-all duration-500 animate-pulse-glow" />
+              <div className="absolute -inset-2 bg-yellow-400/50 rounded-full blur-md group-hover:bg-yellow-400/80 transition-all duration-500 animate-pulse-glow" />
               <SchoolBadge
                 size="hero"
                 className="relative shadow-2xl border-4 border-yellow-400 bg-white p-1 hover:scale-105 transition-transform duration-300 animate-float"
@@ -141,23 +143,30 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
           </div>
 
-          {/* Main Title in Poppins Font: WELCOME TO at top, school name below in a single straight line */}
-          <div className="space-y-1 sm:space-y-1.5 animate-fade-in-up">
-            <p className="font-poppins font-black text-xs sm:text-base md:text-lg lg:text-xl text-white tracking-widest uppercase drop-shadow-md">
+          {/* Main Title in Poppins Font: WELCOME TO at top, school name below */}
+          <div className="space-y-1.5 sm:space-y-2 animate-fade-in-up">
+            <p className="font-poppins font-black text-xs sm:text-base md:text-lg lg:text-xl text-yellow-300 tracking-widest uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
               WELCOME TO
             </p>
-            <h1 className="font-poppins font-black text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-yellow-400 tracking-tight leading-tight uppercase drop-shadow-lg whitespace-nowrap transition-transform duration-300 hover:scale-[1.01]">
-              AL-NIIMA ACADEMY
+            <h1 className="font-poppins font-black text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-yellow-400 tracking-tight leading-tight uppercase drop-shadow-[0_3px_8px_rgba(0,0,0,0.9)] whitespace-nowrap transition-transform duration-300 hover:scale-[1.01]">
+              {hero?.title || general?.name || 'AL-NIIMA ACADEMY'}
             </h1>
           </div>
 
           {/* Subtitle */}
-          <p className="font-poppins text-stone-100 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-normal drop-shadow-sm animate-fade-in-up">
-            A center of excellence in Dutse, Jigawa State, dedicated to raising confident, intelligent, and morally sound future leaders.
+          <p className="font-poppins text-stone-100 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] animate-fade-in-up">
+            {hero?.subtitle || general?.motto || 'A center of excellence in Dutse, Jigawa State, dedicated to raising confident, intelligent, and morally sound future leaders.'}
           </p>
 
+          {/* Welcome Message customized by Admin */}
+          {hero?.welcomeMessage && (
+            <p className="font-sans text-stone-100 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed italic border-t border-yellow-400/40 pt-2.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] animate-fade-in-up bg-black/25 px-4 py-2 rounded-xl backdrop-blur-xs">
+              “{hero.welcomeMessage}”
+            </p>
+          )}
+
           {/* Pill Action Buttons */}
-          <div className="pt-1 sm:pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4 animate-fade-in-up">
+          <div className="pt-2 sm:pt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4 animate-fade-in-up">
             <button
               onClick={() => onNavigate('admissions')}
               className="bg-yellow-400 hover:bg-yellow-300 text-stone-950 font-poppins font-bold text-xs sm:text-sm md:text-base px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full shadow-lg transition-all hover:scale-105 hover:shadow-yellow-400/30 hover:shadow-xl active:scale-95 cursor-pointer"

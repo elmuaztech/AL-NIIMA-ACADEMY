@@ -29,10 +29,10 @@ export const Footer: React.FC<FooterProps> = ({
               <SchoolBadge size="md" />
               <div>
                 <h3 className="font-poppins font-black text-lg text-white tracking-wide">
-                  AL-NIIMA ACADEMY
+                  {general?.name || 'AL-NIIMA ACADEMY'}
                 </h3>
                 <p className="text-xs text-yellow-400 font-poppins font-semibold">
-                  Dutse, Jigawa State
+                  {general?.location || 'Dutse, Jigawa State'}
                 </p>
               </div>
             </div>
@@ -177,19 +177,36 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-emerald-900/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-poppins">
-          <p>© {new Date().getFullYear()} AL-NIIMA ACADEMY. All Rights Reserved.</p>
-          
-          <div className="flex items-center gap-4">
+        <div className="mt-12 pt-6 border-t border-emerald-900/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-poppins">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+            <p>© {new Date().getFullYear()} {general?.name || 'AL-NIIMA ACADEMY'}. All Rights Reserved.</p>
+            <span className="hidden sm:inline text-emerald-700">•</span>
             <span className="text-[11px] text-stone-400">
               Dutse, Jigawa State, Nigeria
             </span>
+          </div>
+          
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[11px] sm:text-xs">
+            <span className="text-stone-300">
+              Powered by{' '}
+              <span className="text-yellow-400 font-semibold tracking-wide">
+                Elmuaz Technologies Ltd
+              </span>
+              {' '}•{' '}
+              <a
+                href="mailto:info@elmuaztech.com.ng"
+                className="text-stone-300 hover:text-yellow-300 underline underline-offset-2 transition-colors"
+              >
+                info@elmuaztech.com.ng
+              </a>
+            </span>
+
             {/* Discreet admin portal button */}
             <button
               onClick={onOpenAdmin}
               title="Staff Portal / Administrative Login"
               aria-label="Staff Portal Login"
-              className="p-1.5 rounded text-emerald-600 hover:text-yellow-400 hover:bg-emerald-900/50 transition-colors"
+              className="p-1.5 rounded text-emerald-600 hover:text-yellow-400 hover:bg-emerald-900/50 transition-colors ml-1"
             >
               <Lock className="w-3.5 h-3.5" />
             </button>

@@ -97,6 +97,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
 
   // Content form state
   const [contentForm, setContentForm] = useState<SchoolData>(data);
+  const [contentSaving, setContentSaving] = useState(false);
 
   // Gallery upload form
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -190,12 +191,18 @@ export const AdminPage: React.FC<AdminPageProps> = ({
 
   // Save Content Changes
   const handleSaveContent = async () => {
+    setContentSaving(true);
     try {
       await api.updateContent(contentForm);
       await onRefreshData();
-      showFeedback('success', 'School information updated successfully!');
+      showFeedback('success', 'School information updated successfully! Public website refreshed.');
     } catch (err: any) {
+      if (err.message?.includes('expired') || err.message?.includes('Unauthorized')) {
+        setIsLoggedIn(false);
+      }
       showFeedback('error', err.message || 'Failed to update content');
+    } finally {
+      setContentSaving(false);
     }
   };
 
@@ -1002,10 +1009,15 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               <div className="flex justify-end">
                 <button
                   onClick={handleSaveContent}
-                  className="inline-flex items-center gap-1.5 bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-xs px-4 py-2 rounded transition-colors"
+                  disabled={contentSaving}
+                  className="inline-flex items-center gap-1.5 bg-emerald-800 hover:bg-emerald-900 disabled:opacity-50 text-white font-semibold text-xs px-4 py-2 rounded transition-colors cursor-pointer"
                 >
-                  <Save className="w-3.5 h-3.5" />
-                  <span>Save Notice Settings</span>
+                  {contentSaving ? (
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Save className="w-3.5 h-3.5" />
+                  )}
+                  <span>{contentSaving ? 'Saving...' : 'Save Notice Settings'}</span>
                 </button>
               </div>
             </div>
@@ -1027,10 +1039,15 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             </div>
             <button
               onClick={handleSaveContent}
-              className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-md shadow transition-all"
+              disabled={contentSaving}
+              className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 disabled:opacity-50 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-md shadow transition-all cursor-pointer"
             >
-              <Save className="w-4 h-4 text-amber-400" />
-              <span>Save All Changes</span>
+              {contentSaving ? (
+                <RefreshCw className="w-4 h-4 animate-spin text-amber-400" />
+              ) : (
+                <Save className="w-4 h-4 text-amber-400" />
+              )}
+              <span>{contentSaving ? 'Saving Updates...' : 'Save All Changes'}</span>
             </button>
           </div>
 
@@ -1274,10 +1291,15 @@ export const AdminPage: React.FC<AdminPageProps> = ({
           <div className="pt-4 border-t border-stone-200 flex justify-end">
             <button
               onClick={handleSaveContent}
-              className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-sm px-6 py-2.5 rounded-md shadow transition-all"
+              disabled={contentSaving}
+              className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 disabled:opacity-50 text-white font-semibold text-sm px-6 py-2.5 rounded-md shadow transition-all cursor-pointer"
             >
-              <Save className="w-4 h-4 text-amber-400" />
-              <span>Save All Changes</span>
+              {contentSaving ? (
+                <RefreshCw className="w-4 h-4 animate-spin text-amber-400" />
+              ) : (
+                <Save className="w-4 h-4 text-amber-400" />
+              )}
+              <span>{contentSaving ? 'Saving Updates...' : 'Save All Changes'}</span>
             </button>
           </div>
         </div>

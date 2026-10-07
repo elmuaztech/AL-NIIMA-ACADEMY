@@ -8,6 +8,7 @@ export interface GeneralInfo {
   documentEmail?: string;
   website: string;
   workingHours?: string;
+  adminPasswordHash?: string;
 }
 
 export interface HeroInfo {

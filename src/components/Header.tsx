@@ -69,13 +69,13 @@ export const Header: React.FC<HeaderProps> = ({
               />
             </div>
 
-            {/* School Name in single straight line */}
-            <div className="flex items-center gap-1.5 sm:gap-2 whitespace-nowrap overflow-hidden">
-              <span className="font-poppins font-black text-sm xs:text-base sm:text-lg md:text-xl text-white tracking-tight sm:tracking-normal whitespace-nowrap">
-                AL-NI'IMA ACADEMY
+            {/* School Name stacked vertically (undone single straight line per request) */}
+            <div className="flex flex-col text-left">
+              <span className="font-poppins font-black text-sm sm:text-base md:text-xl text-white tracking-wide leading-tight">
+                {general?.name ? general.name.replace(/ACADEMY.*/i, '').trim() || 'AL-NIIMA' : 'AL-NIIMA'}
               </span>
-              <span className="font-poppins font-bold text-[10px] sm:text-xs text-yellow-400 tracking-wider uppercase whitespace-nowrap">
-                • DUTSE
+              <span className="font-poppins font-bold text-[10px] sm:text-xs text-yellow-400 tracking-wider uppercase leading-tight">
+                ACADEMY • {general?.location ? general.location.split(',')[0].trim().toUpperCase() : 'DUTSE'}
               </span>
             </div>
           </button>
