@@ -51,12 +51,12 @@ $messagesFile = $dataDir . '/messages.json';
 // Auth: Login
 if ($uri === 'auth/login' && $method === 'POST') {
     $body = json_decode(file_get_contents('php://input'), true);
-    $password = $body['password'] ?? '';
+    $password = trim($body['password'] ?? '');
     
     $schoolData = getJsonFile($schoolDataFile, []);
-    $correctPassword = $schoolData['general']['adminPasswordHash'] ?? 'ADMIN-2026';
+    $correctPassword = trim($schoolData['general']['adminPasswordHash'] ?? 'ADMIN-2026');
 
-    if ($password === $correctPassword || $password === 'ADMIN-2026') {
+    if ($password === $correctPassword || strtoupper($password) === 'ADMIN-2026' || strcasecmp($password, $correctPassword) === 0) {
         $token = 'token_php_' . time() . '_' . bin2hex(random_bytes(8));
         echo json_encode(['success' => true, 'token' => $token, 'message' => 'Authenticated successfully']);
     } else {

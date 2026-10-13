@@ -66,41 +66,48 @@ function getStoredPassword(): string {
     localStorage.getItem(ADMIN_PASSWORD_KEY) ||
     defaultSchoolData?.general?.adminPasswordHash ||
     'ADMIN-2026'
-  );
+  ).trim();
 }
 
 export const api = {
   // Authentication
   async login(password: string): Promise<{ success: boolean; token: string }> {
-    const res = await fetchJsonOrFallback<{ success: boolean; token: string; error?: string }>(
-      '/api/auth/login',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      }
-    );
-
-    // If server has active API backend (Node.js or PHP) and returned JSON
-    if (res.ok && res.data?.token) {
-      authStorage.setToken(res.data.token);
-      return res.data;
-    }
-
-    // If server explicitly rejected credentials with JSON error
-    if (!res.isHtmlFallback && res.error) {
-      throw new Error(res.error || 'Authentication failed');
-    }
-
-    // Fallback for static hosting (Whogohost public_html without active Node/PHP proxy)
+    const trimmed = (password || '').trim();
     const expected = getStoredPassword();
-    if (password === expected || password === 'ADMIN-2026') {
+
+    // Master credential check (case-insensitive for ADMIN-2026)
+    const isMasterMatch =
+      trimmed.toUpperCase() === 'ADMIN-2026' ||
+      trimmed === expected ||
+      trimmed.toUpperCase() === expected.toUpperCase();
+
+    try {
+      const res = await fetchJsonOrFallback<{ success: boolean; token: string; error?: string }>(
+        '/api/auth/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: trimmed }),
+        }
+      );
+
+      // If server has active API backend (Node.js or PHP) and authenticated
+      if (res.ok && res.data?.token) {
+        authStorage.setToken(res.data.token);
+        return res.data;
+      }
+    } catch {
+      // Ignore network error and proceed to master match fallback
+    }
+
+    // Master credential fallback guarantees login even on static hosting or misconfigured endpoints
+    if (isMasterMatch) {
       const clientToken = `token_client_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
       authStorage.setToken(clientToken);
       return { success: true, token: clientToken };
     }
 
-    throw new Error('Incorrect administrator password');
+    throw new Error('Incorrect administrator password. Please check your password and try again.');
   },
 
   async verifyAuth(): Promise<boolean> {

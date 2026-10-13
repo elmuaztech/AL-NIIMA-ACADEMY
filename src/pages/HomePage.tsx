@@ -113,7 +113,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* ============================================================== */}
       <section
         id="home"
-        className="relative scroll-mt-20 overflow-hidden bg-[#093c20] text-white min-h-[65vh] sm:min-h-[72vh] md:min-h-[78vh] flex items-center justify-center pt-10 pb-14 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24 border-b-4 border-yellow-400"
+        className="relative scroll-mt-20 overflow-hidden bg-[#093c20] text-white min-h-[88vh] sm:min-h-[82vh] md:min-h-[85vh] flex items-center justify-center pt-16 pb-20 sm:pt-20 sm:pb-24 md:pt-24 md:pb-28 border-b-4 border-yellow-400"
       >
         {/* Real School Campus Background Image - Softened clarity & gentle blend */}
         <div
@@ -127,9 +127,9 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* Gentle radial vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(5,31,16,0.62)_100%)] pointer-events-none" />
 
-        <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-3.5 sm:space-y-4.5 md:space-y-5 animate-fade-in">
+        <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-5 animate-fade-in py-4">
           {/* Official School Logo at top of WELCOME TO with prominent larger size and clean distinct spacing */}
-          <div className="flex justify-center mb-3 sm:mb-4.5 md:mb-5 animate-fade-in-down">
+          <div className="flex justify-center mb-4 sm:mb-5 animate-fade-in-down">
             <div
               className="relative group cursor-pointer"
               onClick={() => onNavigate('about')}
@@ -148,7 +148,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <p className="font-poppins font-black text-xs sm:text-base md:text-lg lg:text-xl text-yellow-300 tracking-widest uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
               WELCOME TO
             </p>
-            <h1 className="font-poppins font-black text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-yellow-400 tracking-tight leading-tight uppercase drop-shadow-[0_3px_8px_rgba(0,0,0,0.9)] whitespace-nowrap transition-transform duration-300 hover:scale-[1.01]">
+            <h1 className="font-poppins font-black text-2xl min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-yellow-400 tracking-tight leading-tight uppercase drop-shadow-[0_3px_8px_rgba(0,0,0,0.9)] break-words sm:whitespace-nowrap transition-transform duration-300 hover:scale-[1.01]">
               {hero?.title || general?.name || 'AL-NIIMA ACADEMY'}
             </h1>
           </div>
@@ -166,7 +166,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           )}
 
           {/* Pill Action Buttons */}
-          <div className="pt-2 sm:pt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4 animate-fade-in-up">
+          <div className="pt-3 sm:pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 animate-fade-in-up">
             <button
               onClick={() => onNavigate('admissions')}
               className="bg-yellow-400 hover:bg-yellow-300 text-stone-950 font-poppins font-bold text-xs sm:text-sm md:text-base px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full shadow-lg transition-all hover:scale-105 hover:shadow-yellow-400/30 hover:shadow-xl active:scale-95 cursor-pointer"
@@ -192,18 +192,18 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Mission Card */}
           <ScrollReveal animation="fade-up" delay={50}>
-            <div className="bg-white border-2 border-emerald-900/10 hover:border-emerald-700/50 rounded-2xl p-8 sm:p-10 shadow-xs hover-lift transition-all relative overflow-hidden flex flex-col justify-between group h-full">
-              <div className="space-y-4">
+            <div className="bg-white border-2 border-emerald-900/10 hover:border-emerald-700/50 rounded-2xl p-6 sm:p-8 md:p-10 shadow-xs hover-lift transition-all relative overflow-hidden flex flex-col justify-between group h-full min-w-0 break-words">
+              <div className="space-y-4 min-w-0">
                 <div className="w-12 h-12 rounded-xl bg-[#093c20] text-yellow-400 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform duration-300">
                   <Target className="w-6 h-6" />
                 </div>
                 <h2 className="font-poppins font-bold text-2xl sm:text-3xl text-[#093c20] group-hover:text-emerald-800 transition-colors">
                   Our Mission
                 </h2>
-                <blockquote className="border-l-4 border-yellow-400 pl-4 py-1 italic font-poppins text-base sm:text-lg text-emerald-900 font-medium">
+                <blockquote className="border-l-4 border-yellow-400 pl-4 py-1 italic font-poppins text-base sm:text-lg text-emerald-900 font-medium break-words">
                   “{missionVision.mission}”
                 </blockquote>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-words">
                   We are committed to delivering standard education and solid moral values to prepare every child for leadership.
                 </p>
               </div>
@@ -217,18 +217,18 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* Vision Card */}
           <ScrollReveal animation="fade-up" delay={150}>
-            <div className="bg-white border-2 border-emerald-900/10 hover:border-emerald-700/50 rounded-2xl p-8 sm:p-10 shadow-xs hover-lift transition-all relative overflow-hidden flex flex-col justify-between group h-full">
-              <div className="space-y-4">
+            <div className="bg-white border-2 border-emerald-900/10 hover:border-emerald-700/50 rounded-2xl p-6 sm:p-8 md:p-10 shadow-xs hover-lift transition-all relative overflow-hidden flex flex-col justify-between group h-full min-w-0 break-words">
+              <div className="space-y-4 min-w-0">
                 <div className="w-12 h-12 rounded-xl bg-[#093c20] text-yellow-400 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform duration-300">
                   <Compass className="w-6 h-6" />
                 </div>
                 <h2 className="font-poppins font-bold text-2xl sm:text-3xl text-[#093c20] group-hover:text-emerald-800 transition-colors">
                   Our Vision
                 </h2>
-                <blockquote className="border-l-4 border-yellow-400 pl-4 py-1 italic font-poppins text-base sm:text-lg text-emerald-900 font-medium">
+                <blockquote className="border-l-4 border-yellow-400 pl-4 py-1 italic font-poppins text-base sm:text-lg text-emerald-900 font-medium break-words">
                   “{missionVision.vision}”
                 </blockquote>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-words">
                   Developing capable children ready to integrate into society and meet worldwide educational challenges.
                 </p>
               </div>
@@ -257,19 +257,19 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {ethosAndValues.map((val, idx) => (
               <ScrollReveal key={idx} animation="fade-up" delay={(idx % 4) * 50}>
-                <div className="bg-white border border-stone-200 rounded-xl p-5 hover:border-[#093c20] shadow-2xs hover:shadow-md hover-lift transition-all space-y-2 group h-full">
-                  <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-emerald-100 text-[#093c20] text-xs font-bold flex items-center justify-center shrink-0 group-hover:bg-[#093c20] group-hover:text-yellow-400 transition-colors">
+                <div className="bg-white border border-stone-200 rounded-xl p-5 hover:border-[#093c20] shadow-2xs hover:shadow-md hover-lift transition-all space-y-2.5 group h-full flex flex-col justify-start min-w-0 break-words overflow-hidden">
+                  <div className="flex items-start gap-2.5 min-w-0">
+                    <span className="w-6 h-6 rounded-full bg-emerald-100 text-[#093c20] text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#093c20] group-hover:text-yellow-400 transition-colors">
                       {idx + 1}
                     </span>
-                    <h4 className="font-poppins font-bold text-sm sm:text-base text-[#093c20] group-hover:text-emerald-800 transition-colors">
+                    <h4 className="font-poppins font-bold text-sm sm:text-base text-[#093c20] group-hover:text-emerald-800 transition-colors leading-snug break-words min-w-0">
                       {val.title}
                     </h4>
                   </div>
-                  <p className="text-xs text-stone-600 leading-relaxed line-clamp-3">
+                  <p className="text-xs text-stone-600 leading-relaxed break-words pl-8.5 sm:pl-0">
                     {val.description}
                   </p>
                 </div>
@@ -300,8 +300,8 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sections.map((sec, idx) => (
             <ScrollReveal key={sec.id} animation="fade-up" delay={idx * 50}>
-              <div className="bg-white border border-stone-200 hover:border-[#093c20] rounded-2xl p-6 shadow-xs hover:shadow-lg hover-lift transition-all flex flex-col justify-between group h-full">
-                <div className="space-y-3">
+              <div className="bg-white border border-stone-200 hover:border-[#093c20] rounded-2xl p-6 shadow-xs hover:shadow-lg hover-lift transition-all flex flex-col justify-between group h-full min-w-0 break-words overflow-hidden">
+                <div className="space-y-3 min-w-0">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-bold text-yellow-700 bg-yellow-50 px-2.5 py-0.5 rounded border border-yellow-200 uppercase tracking-wide">
                       {sec.category}
@@ -792,30 +792,30 @@ export const HomePage: React.FC<HomePageProps> = ({
                 Al-Niima Academy provides strictly segregated residential quarters for male and female students with round-the-clock security, clean running water, and wholesome meals prepared by school caterers.
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
-                <div className="flex items-center gap-2 text-xs font-medium">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 pt-2">
+                <div className="flex items-center gap-2.5 text-xs font-medium min-w-0">
                   <CheckCircle2 className="w-4 h-4 text-yellow-400 shrink-0" />
-                  <span>Separate Male & Female Hostels</span>
+                  <span className="break-words">Separate Male & Female Hostels</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-medium">
+                <div className="flex items-center gap-2.5 text-xs font-medium min-w-0">
                   <CheckCircle2 className="w-4 h-4 text-yellow-400 shrink-0" />
-                  <span>Clean Running Water</span>
+                  <span className="break-words">Clean Running Water</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-medium">
+                <div className="flex items-center gap-2.5 text-xs font-medium min-w-0">
                   <CheckCircle2 className="w-4 h-4 text-yellow-400 shrink-0" />
-                  <span>24/7 Security Personnel</span>
+                  <span className="break-words">24/7 Security Personnel</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-medium">
+                <div className="flex items-center gap-2.5 text-xs font-medium min-w-0">
                   <CheckCircle2 className="w-4 h-4 text-yellow-400 shrink-0" />
-                  <span>Wholesome Daily Meals</span>
+                  <span className="break-words">Wholesome Daily Meals</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-medium">
+                <div className="flex items-center gap-2.5 text-xs font-medium min-w-0">
                   <CheckCircle2 className="w-4 h-4 text-yellow-400 shrink-0" />
-                  <span>Supervised Prep Sessions</span>
+                  <span className="break-words">Supervised Prep Sessions</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-medium">
+                <div className="flex items-center gap-2.5 text-xs font-medium min-w-0">
                   <CheckCircle2 className="w-4 h-4 text-yellow-400 shrink-0" />
-                  <span>Caring House Parents</span>
+                  <span className="break-words">Caring House Parents</span>
                 </div>
               </div>
 
@@ -917,22 +917,22 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* 4 Simple Steps */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left max-w-3xl mx-auto pt-2">
-              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-left max-w-3xl mx-auto pt-2">
+              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl min-w-0 break-words">
                 <span className="text-yellow-400 font-bold text-xs">Step 1</span>
-                <p className="text-xs text-stone-200 font-medium mt-1">Visit Campus or Contact Us</p>
+                <p className="text-xs text-stone-200 font-medium mt-1 leading-snug">Visit Campus or Contact Us</p>
               </div>
-              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl">
+              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl min-w-0 break-words">
                 <span className="text-yellow-400 font-bold text-xs">Step 2</span>
-                <p className="text-xs text-stone-200 font-medium mt-1">Submit Required Documents</p>
+                <p className="text-xs text-stone-200 font-medium mt-1 leading-snug">Submit Required Documents</p>
               </div>
-              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl">
+              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl min-w-0 break-words">
                 <span className="text-yellow-400 font-bold text-xs">Step 3</span>
-                <p className="text-xs text-stone-200 font-medium mt-1">Assessment & Interview</p>
+                <p className="text-xs text-stone-200 font-medium mt-1 leading-snug">Assessment & Interview</p>
               </div>
-              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl">
+              <div className="bg-emerald-950/60 border border-yellow-400/20 p-3.5 rounded-xl min-w-0 break-words">
                 <span className="text-yellow-400 font-bold text-xs">Step 4</span>
-                <p className="text-xs text-stone-200 font-medium mt-1">Offer & Registration</p>
+                <p className="text-xs text-stone-200 font-medium mt-1 leading-snug">Offer & Registration</p>
               </div>
             </div>
 

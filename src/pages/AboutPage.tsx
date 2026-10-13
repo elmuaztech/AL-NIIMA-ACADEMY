@@ -103,21 +103,21 @@ export const AboutPage: React.FC<AboutPageProps> = ({ data, onNavigate }) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {ethosAndValues.map((item, idx) => (
             <div
               key={idx}
-              className="bg-white border border-stone-200 rounded-lg p-5 shadow-2xs hover:border-emerald-800 hover:shadow-md hover-lift transition-all group"
+              className="bg-white border border-stone-200 rounded-xl p-5 shadow-2xs hover:border-emerald-800 hover:shadow-md hover-lift transition-all group flex flex-col justify-start min-w-0 break-words overflow-hidden"
             >
-              <div className="flex items-center gap-3 mb-2.5">
-                <span className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center justify-center shrink-0 group-hover:bg-[#093c20] group-hover:text-yellow-400 transition-colors">
+              <div className="flex items-start gap-3 mb-2 min-w-0">
+                <span className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#093c20] group-hover:text-yellow-400 transition-colors">
                   {idx + 1}
                 </span>
-                <h3 className="font-serif font-bold text-base text-emerald-950 group-hover:text-emerald-800 transition-colors">
+                <h3 className="font-poppins font-bold text-base text-emerald-950 group-hover:text-emerald-800 transition-colors leading-snug break-words min-w-0">
                   {item.title}
                 </h3>
               </div>
-              <p className="text-xs text-stone-600 leading-relaxed pl-10">
+              <p className="text-xs text-stone-600 leading-relaxed break-words mt-1">
                 {item.description}
               </p>
             </div>

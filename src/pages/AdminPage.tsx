@@ -3,7 +3,6 @@ import {
   SchoolData,
   GalleryItem,
   VideoItem,
-  AdmissionApplication,
   ContactMessage,
   FacilityItem,
 } from '../types/school';
@@ -23,7 +22,6 @@ import {
   Image as ImageIcon,
   Video,
   Inbox,
-  Users,
   Settings,
   Bell,
   RefreshCw,
@@ -59,15 +57,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  // Tabs: 'overview' | 'content' | 'facilities' | 'gallery' | 'videos' | 'admissions' | 'messages' | 'security'
+  // Tabs: 'overview' | 'content' | 'facilities' | 'gallery' | 'videos' | 'messages' | 'security'
   const [activeTab, setActiveTab] = useState<
-    'overview' | 'content' | 'facilities' | 'gallery' | 'videos' | 'admissions' | 'messages' | 'security'
+    'overview' | 'content' | 'facilities' | 'gallery' | 'videos' | 'messages' | 'security'
   >('overview');
 
   // Dashboard Data
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [videos, setVideos] = useState<VideoItem[]>([]);
-  const [applications, setApplications] = useState<AdmissionApplication[]>([]);
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loadingItems, setLoadingItems] = useState(false);
 
@@ -137,15 +134,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
   const loadAdminData = async () => {
     setLoadingItems(true);
     try {
-      const [gal, vids, apps, msgs] = await Promise.all([
+      const [gal, vids, msgs] = await Promise.all([
         api.getGallery(),
         api.getVideos(),
-        api.getApplications(),
         api.getMessages(),
       ]);
       setGalleryItems(gal);
       setVideos(vids);
-      setApplications(apps);
       setMessages(msgs);
     } catch (err: any) {
       console.error(err);
@@ -169,17 +164,18 @@ export const AdminPage: React.FC<AdminPageProps> = ({
   };
 
   // Login handler
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (e?: React.FormEvent, customPassword?: string) => {
+    if (e) e.preventDefault();
     setLoginLoading(true);
     setLoginError(null);
 
+    const passToTry = (customPassword !== undefined ? customPassword : passwordInput).trim();
     try {
-      await api.login(passwordInput);
+      await api.login(passToTry);
       setIsLoggedIn(true);
       setPasswordInput('');
     } catch (err: any) {
-      setLoginError(err.message || 'Incorrect password');
+      setLoginError(err.message || 'Incorrect administrator password');
     } finally {
       setLoginLoading(false);
     }
@@ -619,19 +615,6 @@ export const AdminPage: React.FC<AdminPageProps> = ({
     }
   };
 
-  // Applications Status Update
-  const handleUpdateApplicationStatus = async (
-    id: string,
-    status: AdmissionApplication['status']
-  ) => {
-    try {
-      const updated = await api.updateApplicationStatus(id, status);
-      setApplications(applications.map((a) => (a.id === id ? updated : a)));
-      showFeedback('success', `Application status changed to ${status}`);
-    } catch (err: any) {
-      showFeedback('error', err.message || 'Failed to update application');
-    }
-  };
 
   // Contact Messages Update
   const handleMarkMessageRead = async (id: string) => {
@@ -687,7 +670,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               AL-NIIMA ACADEMY
             </h2>
             <p className="text-xs text-stone-500">
-              Please enter your authorized administrative password to manage school website content and admissions.
+              Please enter your authorized administrative password to manage school website content, gallery, and communications.
             </p>
           </div>
 
@@ -709,14 +692,17 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   required
                   placeholder="Enter administrator password"
                   value={passwordInput}
-                  onChange={(e) => setPasswordInput(e.target.value)}
+                  onChange={(e) => {
+                    setPasswordInput(e.target.value);
+                    if (loginError) setLoginError(null);
+                  }}
                   className="w-full pl-9 pr-10 py-2.5 rounded-md border border-stone-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-700"
                 />
                 <Lock className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-600 focus:outline-none"
+                  className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-600 focus:outline-none cursor-pointer"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -726,8 +712,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 <span>Default administrative credential:</span>
                 <button
                   type="button"
-                  onClick={() => setPasswordInput('ADMIN-2026')}
-                  className="font-mono font-semibold text-emerald-800 hover:text-emerald-950 hover:underline px-1 py-0.5 bg-emerald-50 rounded border border-emerald-200"
+                  onClick={() => {
+                    setPasswordInput('ADMIN-2026');
+                    setLoginError(null);
+                  }}
+                  className="font-mono font-semibold text-emerald-800 hover:text-emerald-950 hover:underline px-2 py-0.5 bg-emerald-50 rounded border border-emerald-200 cursor-pointer"
+                  title="Click to fill ADMIN-2026"
                 >
                   ADMIN-2026
                 </button>
@@ -884,20 +874,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
         </button>
 
         <button
-          onClick={() => setActiveTab('admissions')}
-          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap ${
-            activeTab === 'admissions'
-              ? 'bg-emerald-800 text-white font-semibold shadow-2xs'
-              : 'text-stone-700 hover:bg-stone-100'
-          }`}
-        >
-          <Users className="w-4 h-4" />
-          <span>Applications ({applications.length})</span>
-        </button>
-
-        <button
           onClick={() => setActiveTab('messages')}
-          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap ${
+          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
             activeTab === 'messages'
               ? 'bg-emerald-800 text-white font-semibold shadow-2xs'
               : 'text-stone-700 hover:bg-stone-100'
@@ -909,7 +887,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
 
         <button
           onClick={() => setActiveTab('security')}
-          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap ${
+          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
             activeTab === 'security'
               ? 'bg-emerald-800 text-white font-semibold shadow-2xs'
               : 'text-stone-700 hover:bg-stone-100'
@@ -923,17 +901,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
       {/* ----------------- TAB: OVERVIEW ----------------- */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-2xs space-y-1">
-              <span className="text-xs text-stone-500">Admission Applications</span>
-              <p className="font-serif font-bold text-2xl text-emerald-950">
-                {applications.length}
-              </p>
-              <span className="text-[11px] text-amber-600 font-medium">
-                {applications.filter((a) => a.status === 'Pending').length} pending review
-              </span>
-            </div>
-
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-2xs space-y-1">
               <span className="text-xs text-stone-500">Contact Inquiries</span>
               <p className="font-serif font-bold text-2xl text-emerald-950">
@@ -2317,120 +2285,6 @@ export const AdminPage: React.FC<AdminPageProps> = ({
         </div>
       )}
 
-      {/* ----------------- TAB: ADMISSIONS ----------------- */}
-      {activeTab === 'admissions' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-2xs space-y-4">
-          <div className="flex items-center justify-between border-b border-stone-200 pb-3">
-            <div>
-              <h3 className="font-serif font-bold text-lg text-emerald-950">
-                Online Admission Applications ({applications.length})
-              </h3>
-              <p className="text-xs text-stone-500">
-                Review submitted applications from prospective parents and update application status.
-              </p>
-            </div>
-            <button
-              onClick={loadAdminData}
-              className="p-1.5 text-stone-500 hover:text-emerald-800 rounded"
-              title="Refresh applications"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
-          </div>
-
-          {applications.length === 0 ? (
-            <p className="text-xs text-stone-500 py-6 text-center">
-              No online admission applications submitted yet.
-            </p>
-          ) : (
-            <div className="space-y-4">
-              {applications.map((app) => (
-                <div
-                  key={app.id}
-                  className="border border-stone-200 rounded-lg p-5 bg-stone-50/50 space-y-3"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200 pb-2">
-                    <div>
-                      <span className="font-mono text-xs font-bold text-emerald-900 bg-emerald-100 px-2.5 py-0.5 rounded">
-                        {app.applicationNumber}
-                      </span>
-                      <h4 className="font-serif font-bold text-base text-emerald-950 mt-1">
-                        {app.studentFullName} ({app.gender})
-                      </h4>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-stone-500">Status:</span>
-                      <select
-                        value={app.status}
-                        onChange={(e) =>
-                          handleUpdateApplicationStatus(
-                            app.id,
-                            e.target.value as AdmissionApplication['status']
-                          )
-                        }
-                        className={`text-xs font-bold px-2.5 py-1 rounded border ${
-                          app.status === 'Accepted'
-                            ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
-                            : app.status === 'Declined'
-                            ? 'bg-red-100 text-red-900 border-red-300'
-                            : app.status === 'Under Review'
-                            ? 'bg-amber-100 text-amber-900 border-amber-300'
-                            : 'bg-stone-200 text-stone-800 border-stone-300'
-                        }`}
-                      >
-                        <option value="Pending">Pending</option>
-                        <option value="Under Review">Under Review</option>
-                        <option value="Accepted">Accepted</option>
-                        <option value="Declined">Declined</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs text-stone-700">
-                    <div>
-                      <strong className="block text-stone-900">Section Applied:</strong>
-                      <span>{app.sectionApplied} {app.entryClass ? `(${app.entryClass})` : ''}</span>
-                    </div>
-                    <div>
-                      <strong className="block text-stone-900">Boarding Preference:</strong>
-                      <span className="text-emerald-800 font-semibold">{app.boardingPreference}</span>
-                    </div>
-                    <div>
-                      <strong className="block text-stone-900">Parent / Guardian:</strong>
-                      <span>{app.parentFullName}</span>
-                    </div>
-                    <div>
-                      <strong className="block text-stone-900">Parent Contact:</strong>
-                      <a href={`tel:${app.parentPhone}`} className="text-emerald-700 hover:underline">
-                        {app.parentPhone}
-                      </a>
-                    </div>
-                  </div>
-
-                  {app.residentialAddress && (
-                    <div className="text-xs text-stone-600 bg-white p-2.5 rounded border border-stone-200">
-                      <strong className="text-stone-800">Address: </strong>
-                      <span>{app.residentialAddress}</span>
-                    </div>
-                  )}
-
-                  {app.additionalNotes && (
-                    <div className="text-xs text-stone-600 bg-white p-2.5 rounded border border-stone-200">
-                      <strong className="text-stone-800">Notes: </strong>
-                      <span>{app.additionalNotes}</span>
-                    </div>
-                  )}
-
-                  <div className="text-[11px] text-stone-400">
-                    Submitted on: {new Date(app.createdAt).toLocaleString()}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
 
       {/* ----------------- TAB: MESSAGES ----------------- */}
       {activeTab === 'messages' && (

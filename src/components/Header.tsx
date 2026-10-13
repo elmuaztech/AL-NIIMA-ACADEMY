@@ -3,8 +3,6 @@ import { SchoolBadge } from './SchoolBadge';
 import {
   Menu,
   X,
-  Lock,
-  LockOpen,
   ChevronRight,
 } from 'lucide-react';
 import { GeneralInfo } from '../types/school';
@@ -107,35 +105,12 @@ export const Header: React.FC<HeaderProps> = ({
             })}
           </nav>
 
-          {/* Right Area: Staff Lock Icon & Mobile Menu Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Discreet Lock Icon for Staff / Admin Login (Exactly as seen in reference image) */}
-            <button
-              onClick={() => handleNav('admin')}
-              className={`p-2 rounded-lg transition-colors flex items-center gap-1.5 ${
-                currentPage === 'admin'
-                  ? 'text-yellow-400 bg-emerald-950 border border-yellow-400/40'
-                  : 'text-yellow-400 hover:text-white hover:bg-emerald-900/60'
-              }`}
-              title={isAdminLoggedIn ? 'Staff Portal (Active)' : 'Staff / Admin Portal'}
-              aria-label="Staff Portal"
-            >
-              {isAdminLoggedIn ? (
-                <LockOpen className="w-5 h-5 text-yellow-400" />
-              ) : (
-                <Lock className="w-5 h-5 text-yellow-400" />
-              )}
-              {isAdminLoggedIn && (
-                <span className="text-[10px] font-bold uppercase tracking-wider text-yellow-400 hidden sm:inline">
-                  Admin
-                </span>
-              )}
-            </button>
-
+          {/* Right Area: Mobile Menu Toggle only (Lock icon removed from header) */}
+          <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-white hover:bg-emerald-900 focus:outline-hidden"
+              className="p-2 rounded-lg text-white hover:bg-emerald-900 focus:outline-hidden cursor-pointer"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
