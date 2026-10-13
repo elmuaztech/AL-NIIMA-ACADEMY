@@ -55,6 +55,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
 }) => {
   // Login state
   const [passwordInput, setPasswordInput] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loginLoading, setLoginLoading] = useState(false);
 
@@ -704,21 +705,39 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   placeholder="Enter administrator password"
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-md border border-stone-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-700"
+                  className="w-full pl-9 pr-10 py-2.5 rounded-md border border-stone-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-700"
                 />
                 <Lock className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-600 focus:outline-none"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              <div className="mt-2 flex items-center justify-between text-[11px] text-stone-500">
+                <span>Default administrative credential:</span>
+                <button
+                  type="button"
+                  onClick={() => setPasswordInput('ADMIN-2026')}
+                  className="font-mono font-semibold text-emerald-800 hover:text-emerald-950 hover:underline px-1 py-0.5 bg-emerald-50 rounded border border-emerald-200"
+                >
+                  ADMIN-2026
+                </button>
               </div>
             </div>
 
             <button
               type="submit"
               disabled={loginLoading}
-              className="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-sm py-2.5 rounded-md shadow-sm transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-sm py-2.5 rounded-md shadow-sm transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
             >
               {loginLoading ? (
                 <span>Authenticating...</span>
@@ -954,6 +973,36 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 {videos.length}
               </p>
               <span className="text-[11px] text-stone-400">Active media entries</span>
+            </div>
+          </div>
+
+          {/* Live System & Update Verification Guide */}
+          <div className="bg-emerald-950 text-white border border-emerald-800 rounded-xl p-5 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-900 pb-3">
+              <div className="flex items-center gap-2.5">
+                <RefreshCw className="w-4 h-4 text-amber-400" />
+                <h3 className="font-poppins font-bold text-sm text-amber-400">
+                  Website Update & Sync Verification (Build 2026.10)
+                </h3>
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold bg-emerald-900 text-emerald-200 px-2.5 py-1 rounded-full border border-emerald-700">
+                <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+                Updated & Active
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-emerald-100/90 leading-relaxed">
+              <div>
+                <p className="font-semibold text-white mb-1">How to check when changes are live:</p>
+                <p>
+                  Look at the bottom footer: you will see <span className="text-amber-400 font-semibold">“Build 2026.10 • Live System Updated”</span> and <span className="text-yellow-300 font-semibold">Elmuaz Technologies Ltd</span> centered with your email.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold text-white mb-1">If your browser shows an older page:</p>
+                <p>
+                  Perform a hard refresh (<kbd className="bg-emerald-900 px-1.5 py-0.5 rounded border border-emerald-700 text-amber-300 font-mono text-[10px]">Ctrl + Shift + R</kbd> on Windows or <kbd className="bg-emerald-900 px-1.5 py-0.5 rounded border border-emerald-700 text-amber-300 font-mono text-[10px]">Cmd + Shift + R</kbd> on Mac) to clear cached files immediately.
+                </p>
+              </div>
             </div>
           </div>
 

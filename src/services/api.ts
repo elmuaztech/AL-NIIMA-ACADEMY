@@ -37,13 +37,21 @@ async function fetchJsonOrFallback<T = any>(
     const res = await fetch(url, options);
     const contentType = (res.headers.get('content-type') || '').toLowerCase();
     
-    // If server responded with HTML (e.g. index.html SPA rewrite), do NOT try res.json()
+    // If server responded with HTML (e.g. index.html SPA rewrite), do NOT try JSON parsing
     if (contentType.includes('text/html')) {
       return { ok: false, status: res.status, isHtmlFallback: true, error: 'Static HTML returned by server' };
     }
 
+    const text = await res.text();
+    const trimmed = (text || '').trim();
+
+    // Check if the body begins with an HTML tag (such as <!DOCTYPE html> or <html>)
+    if (!trimmed || trimmed.startsWith('<') || trimmed.toLowerCase().startsWith('<!doctype')) {
+      return { ok: false, status: res.status, isHtmlFallback: true, error: 'Static HTML returned by server' };
+    }
+
     try {
-      const data = await res.json();
+      const data = JSON.parse(text);
       return { ok: res.ok, status: res.status, data, isHtmlFallback: false, error: data?.error };
     } catch {
       return { ok: false, status: res.status, isHtmlFallback: true, error: 'Response was not valid JSON' };
@@ -625,10 +633,15 @@ export const api = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, history, language }),
       });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.answer) {
-          return data;
+      const contentType = (res.headers.get('content-type') || '').toLowerCase();
+      if (res.ok && !contentType.includes('text/html')) {
+        const text = await res.text();
+        const trimmed = (text || '').trim();
+        if (trimmed && !trimmed.startsWith('<')) {
+          const data = JSON.parse(text);
+          if (data && data.answer) {
+            return data;
+          }
         }
       }
     } catch (e) {

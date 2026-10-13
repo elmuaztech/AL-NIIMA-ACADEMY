@@ -72,10 +72,10 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => handleNav('sections')}
+                  onClick={() => handleNav('gallery')}
                   className="hover:text-yellow-400 transition-colors text-left"
                 >
-                  School Sections (Crèche to A’level)
+                  School Gallery & Media
                 </button>
               </li>
               <li>
@@ -84,6 +84,14 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-yellow-400 transition-colors text-left"
                 >
                   Academics & Clubs
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleNav('sections')}
+                  className="hover:text-yellow-400 transition-colors text-left"
+                >
+                  School Sections (Crèche to A’level)
                 </button>
               </li>
               <li>
@@ -104,10 +112,10 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => handleNav('gallery')}
+                  onClick={() => handleNav('admissions')}
                   className="hover:text-yellow-400 transition-colors text-left"
                 >
-                  School Gallery & Media
+                  Admissions
                 </button>
               </li>
             </ul>
@@ -176,40 +184,52 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-emerald-900/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-poppins">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
-            <p>© {new Date().getFullYear()} {general?.name || 'AL-NIIMA ACADEMY'}. All Rights Reserved.</p>
+        {/* Bottom bar — Company name & email centered with clean text alignment */}
+        <div className="mt-12 pt-8 border-t border-emerald-900/80 flex flex-col items-center justify-center text-center gap-3.5 text-xs text-stone-400 font-poppins">
+          {/* School Copyright Line */}
+          <div className="flex flex-wrap items-center justify-center gap-2 text-stone-300 text-xs text-center">
+            <span>© {new Date().getFullYear()} {general?.name || 'AL-NIIMA ACADEMY'}. All Rights Reserved.</span>
             <span className="hidden sm:inline text-emerald-700">•</span>
             <span className="text-[11px] text-stone-400">
               Dutse, Jigawa State, Nigeria
             </span>
           </div>
-          
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[11px] sm:text-xs">
-            <span className="text-stone-300">
-              Powered by{' '}
-              <span className="text-yellow-400 font-semibold tracking-wide">
-                Elmuaz Technologies Ltd
-              </span>
-              {' '}•{' '}
-              <a
-                href="mailto:info@elmuaztech.com.ng"
-                className="text-stone-300 hover:text-yellow-300 underline underline-offset-2 transition-colors"
-              >
-                info@elmuaztech.com.ng
-              </a>
+
+          {/* Centered Company Branding & Email Bar */}
+          <div className="inline-flex flex-wrap items-center justify-center text-center gap-x-2.5 gap-y-1.5 px-5 py-2.5 rounded-full bg-emerald-950/70 border border-emerald-800/60 shadow-xs text-xs sm:text-sm">
+            <span className="text-stone-300">Powered by</span>
+            <span className="text-yellow-400 font-bold tracking-wide">
+              Elmuaz Technologies Ltd
             </span>
+            <span className="text-emerald-600 hidden sm:inline">•</span>
+            <a
+              href="mailto:elmuaztechnologiesltd@gmail.com"
+              className="text-stone-200 hover:text-yellow-300 font-medium underline underline-offset-4 decoration-yellow-400/40 hover:decoration-yellow-300 transition-colors"
+            >
+              elmuaztechnologiesltd@gmail.com
+            </a>
+            <span className="text-emerald-600 hidden md:inline">•</span>
+            <a
+              href="mailto:info@elmuaztech.com.ng"
+              className="text-stone-400 hover:text-yellow-300 text-[11px] sm:text-xs transition-colors"
+            >
+              info@elmuaztech.com.ng
+            </a>
 
             {/* Discreet admin portal button */}
             <button
               onClick={onOpenAdmin}
               title="Staff Portal / Administrative Login"
               aria-label="Staff Portal Login"
-              className="p-1.5 rounded text-emerald-600 hover:text-yellow-400 hover:bg-emerald-900/50 transition-colors ml-1"
+              className="p-1 rounded-full text-emerald-600 hover:text-yellow-400 hover:bg-emerald-900/60 transition-colors ml-1 cursor-pointer"
             >
               <Lock className="w-3.5 h-3.5" />
             </button>
+          </div>
+
+          {/* Verification / Build sync tag */}
+          <div className="text-[10px] text-stone-300/80 tracking-wider">
+            <span>Build 2026.10 • Live System Updated</span>
           </div>
         </div>
       </div>
